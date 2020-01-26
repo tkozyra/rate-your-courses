@@ -1,0 +1,32 @@
+
+<div class="container">
+    <h2>Filtrowanie kursów</h2>
+    <label for="Nazwa kursu">Liczba punktów ECTS</label>
+    <ng-multiselect-dropdown [placeholder]="'Wybierz liczbę punktów ECTS'" [data]="dropdownEctsList"
+        (onSelect)="onEctsItemSelect($event)" (onDeSelect)="onEctsItemDeSelect($event)" ([ngModel])="selectedEcts"
+        [settings]="dropdownSettings">
+    </ng-multiselect-dropdown>
+</div>
+
+<div class="container">
+    <label for="Nazwa kursu">Semestr</label>
+    <ng-multiselect-dropdown [placeholder]="'Wybierz semestry'" [data]="dropdownSemesterList"
+        (onSelect)="onSemesterItemSelect($event)" (onDeSelect)="onSemesterItemDeSelect($event)"
+        ([ngModel])="selectedSemester" [settings]="dropdownSettings">
+    </ng-multiselect-dropdown>
+</div>
+
+<!-- <div class="container">
+    <label for="Minimalna ocena">Minimalna ocena</label>
+    <ng-multiselect-dropdown [placeholder]="'Wybierz minimalną ocenę'" [data]="dropdownSemesterList"
+        (onSelect)="onSemesterItemSelect($event)" (onDeSelect)="onSemesterItemDeSelect($event)"
+        ([ngModel])="selectedSemester" [settings]="dropdownSettings">
+    </ng-multiselect-dropdown>
+</div> -->
+
+<div class="container">
+    <div class="form-group">
+        <label for="Nazwa kursu">Nazwa kursu</label>
+        <input class="form-control" [(ngModel)]="selectedName" placeholder="Podaj nazwę kursu">
+    </div>
+</div>

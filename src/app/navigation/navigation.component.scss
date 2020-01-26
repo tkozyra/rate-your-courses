@@ -1,0 +1,21 @@
+.navbar{
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+}
+
+@media (max-width: 376px){
+    .navbar-collapse{
+        height: 100vh;
+    }
+}
+
+a.email{
+    color: #ffffff !important;
+    text-align: center;
+    margin: 0 1em;
+}
+
+a.email:hover{
+    color: #ffffff !important;
+}

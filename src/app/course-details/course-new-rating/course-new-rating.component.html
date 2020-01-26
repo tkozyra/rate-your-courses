@@ -1,0 +1,20 @@
+<!-- <h4>Możesz ocenić ten kurs!</h4> -->
+<div class="form-group">
+    <ngb-rating [formControl]="ctrl" [(rate)]="rating">
+        <ng-template let-fill="fill" let-index="index">
+            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+        </ng-template>
+
+    </ngb-rating>
+    <div class="form-text small">
+
+        <div *ngIf="ratingSubmitted" class="text-success">Dziękujemy za ocenę!</div>
+        <div *ngIf="ctrl.invalid" class="text-success">Możesz ocenić kurs</div>
+    </div>
+</div>
+
+
+<!-- <pre>Twoja ocena kursu: <b>{{rating}}</b></pre> -->
+<button class="btn btn-lg btn-success mr-2 submit-button" *ngIf="!ratingSubmitted" (click)="rateCourse(rating)"
+    (click)="toggle()">Zatwierdz ocene</button>
+<!-- <button class="btn btn-sm btn-outline-primary mr-2" (click)="rateCourse()">Zatwierdz ocene</button> -->

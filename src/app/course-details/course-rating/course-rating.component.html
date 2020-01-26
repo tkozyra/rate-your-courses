@@ -1,0 +1,14 @@
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+  </span>
+</ng-template>
+
+<ngb-rating [(rate)]="currentRating" [starTemplate]="t" [readonly]="true" max="5" ></ngb-rating>
+
+
+<pre (click)="onRatingReceived(true)">Aktualna ocena: <b>{{currentRating}}</b></pre>
+<pre>Liczba ocen: <b>{{numberOfRatings}}</b></pre>
+<hr>
+<app-course-new-rating [course]="course" (rated)="onRatingReceived($event)"></app-course-new-rating>
+
