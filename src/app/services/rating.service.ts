@@ -1,25 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../course';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FirestoreService } from './firestore.service';
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+
+export interface Rating {
+  email: any;
+  courseId: any;
+  value: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RatingService {
 
-  constructor() { }
+  constructor(private firestore: AngularFirestore) { }
 
-  rateCourse(course : Course, rating : number){
-    course.numberOfRatings = course.numberOfRatings + 1;
-    course.rating = course.rating + rating;
+  getUserRating(email) {
+    const ratingsRef = this.firestore.collection('ratings', ref => ref.where('email', '==', email));
+    return ratingsRef.valueChanges();
   }
 
-  getNumberOfRatings(course : Course) : number{
-    return course.numberOfRatings;
+  getCourseRating(courseId) {
+    const ratingsRef = this.firestore.collection('ratings', ref => ref.where(
+      'courseId', '==', courseId));
+    return ratingsRef.valueChanges();
   }
 
-  getCurrentRating(course : Course) : number{
-    return course.rating / course.numberOfRatings;
+  setRating(email, courseId, value){
+    const rating: Rating = {email, courseId, value};
+    const ratingEmail = rating.email;
+    const ratingCourseId = rating.courseId;
+    const ratingPath = 'ratings/' + ratingEmail + '_' + ratingCourseId;
+    return this.firestore.doc(ratingPath).set(rating);
   }
-
 }

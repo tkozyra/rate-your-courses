@@ -14,6 +14,7 @@
 
                     <h1 class="font-weight-light mt-4 text-white">RateYourCourses</h1>
                     <p class="lead text-white-50">Witaj w aplikacji do oceny kursów kierunku Informatyka wydziału WIET AGH!</p>
+                    <p  *ngIf="loggedIn" class="">Jesteś zalogowany! Możesz przeglądać i oceniać wszystkie kursy!</p>
                     <button type="button" class="btn btn-lg btn-secondary" routerLink="/courses">Przeglądaj kursy</button>
 
                     
@@ -22,10 +23,8 @@
 
             <div *ngIf="!loggedIn" class="row justify-content-center">
                 <div class="col-md-12">
-
                     <p class="lead text-white-50">Zaloguj się na swoje konto by w pełni korzystać z możliwości aplikacji</p>
                     <button type="button" class="btn btn-lg btn-primary" routerLink="/login">Zaloguj</button>
-
                     <p class="text-white-50">Nie masz konta? <a routerLink="/register">Zarejestruj się</a></p>
                 </div>
             </div>

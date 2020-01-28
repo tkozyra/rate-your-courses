@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Course } from '../../course';
 import { RatingService } from '../../services/rating.service';
-import { CourseNewRatingComponent } from '../course-new-rating/course-new-rating.component';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-rating',
@@ -15,46 +16,50 @@ import { CourseNewRatingComponent } from '../course-new-rating/course-new-rating
 
 export class CourseRatingComponent implements OnInit {
 
-  ctrl = new FormControl(null, Validators.required);
-  currentRating: number;
-  numberOfRatings: number;
-  ratingReceived: number;
-  rated: boolean;
+  emailNotNull
+  ratingsNumber
 
-  message: string;
 
-  @Input() course: Course;
+  @Input() email;
+  @Input() courseId;
 
-  constructor(config: NgbRatingConfig, private ratingService: RatingService) {
+  ratings: Observable<any>;
+  avgRating: Observable<any>;
+
+  constructor(
+    config: NgbRatingConfig,
+    private ratingService: RatingService,
+    private firestoreService: FirestoreService
+  ) {
     config.max = 5;
-    config.readonly = true;
-  }
-
-  onRatingReceived(rated: boolean) {
-    if (rated) {
-      this.currentRating = this.ratingService.getCurrentRating(this.course);
-      this.numberOfRatings = this.ratingService.getNumberOfRatings(this.course);
-    }
+    config.readonly = false;
+    this.verifyEmail();
   }
 
   ngOnInit() {
-    this.currentRating = this.ratingService.getCurrentRating(this.course);
-    this.numberOfRatings = this.ratingService.getNumberOfRatings(this.course);
+    this.ratings = this.ratingService.getCourseRating(this.courseId);
+    this.avgRating = this.ratings.pipe(map(arr => {
+      const stars = arr.map(v => v.value)
+      this.ratingsNumber = stars.length
+      return stars.length ? stars.reduce((total, val) => total + val)/arr.length : 'Brak ocen'
+    }))
+    this.verifyEmail();
   }
 
-  ngOnChanges(){
-    this.currentRating = this.ratingService.getCurrentRating(this.course);
-    this.numberOfRatings = this.ratingService.getNumberOfRatings(this.course);
+  ratingHandler(value){
+    this.ratingService.setRating(this.email, this.courseId, value)
   }
 
-  // rateCourse() {
+  verifyEmail(){
+    if(this.email != ""){
+      this.emailNotNull = true;
+    }else{
+      this.emailNotNull = false;
+    }
+  }
 
-  //   this.ctrl.setErrors(null);
-  //   this.ratingService.rateCourse(this.course, this.newRating);
-  //   this.numberOfRatings = this.ratingService.getNumberOfRatings(this.course);
-  //   this.currentRating = this.ratingService.getCurrentRating(this.course);
-  // }
-
-
+  ngAfterViewChecked(){
+    this.verifyEmail();
+  }
 
 }

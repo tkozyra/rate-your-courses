@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../course';
-import { COURSES } from '../mock-courses';
+// import { COURSES } from '../mock-courses';
 import { Observable, of } from 'rxjs';
 import { FirebaseFirestore } from '@angular/fire';
 
@@ -14,25 +14,25 @@ export class CourseService {
 
 
   // for mock data source
-  getCourses(): Observable<Course[]> {
-    return of(COURSES);
-  }
+  // getCourses(): Observable<Course[]> {
+  //   return of(COURSES);
+  // }
+
+  // // getCourse(id: number): Observable<Course> {
+  // //   return of(COURSES.find(course => course.id === id));
+  // // }
 
   // getCourse(id: number): Observable<Course> {
   //   return of(COURSES.find(course => course.id === id));
   // }
 
-  getCourse(id: number): Observable<Course> {
-    return of(COURSES.find(course => course.id === id));
-  }
+  // deleteCourse(course: Course): void {
+  //   COURSES.splice(COURSES.indexOf(course), 1);
+  // }
 
-  deleteCourse(course: Course): void {
-    COURSES.splice(COURSES.indexOf(course), 1);
-  }
-
-  addCourse(course: Course): void {
-    COURSES.push(course);
-  }
+  // addCourse(course: Course): void {
+  //   COURSES.push(course);
+  // }
 
   
   //

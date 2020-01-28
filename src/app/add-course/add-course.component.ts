@@ -70,17 +70,30 @@ export class AddCourseComponent implements OnInit {
     });
   }
 
+  model: Course
+
   onSubmit() {
     if (this.myForm.valid) {
       // console.log("Form Submitted!");
-      let course = new Course(100, this.name.value, this.ects.value, this.semester.value, this.activityType.value, this.participantsLimit.value, 0, 0, this.description.value);
-      this.courseService.addCourse(course);
+
+      this.model = {
+        name: this.name.value,
+        ects: this.ects.value,
+        semester: this.semester.value,
+        participantsLimit: this.participantsLimit.value,
+        activityType: this.activityType.value,
+        description: this.description.value,
+        rating: 0,
+        numberOfRatings: 0
+
+      }
+
       this.myForm.reset();
       this.showHideForm();
       this.showSuccessMessage();
 
 
-      this.firestoreService.getData();
+      this.firestoreService.createData(this.model);
     }
   }
 }

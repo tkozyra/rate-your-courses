@@ -1,14 +1,31 @@
-<ng-template #t let-fill="fill">
-  <span class="star" [class.full]="fill === 100">
-    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-  </span>
-</ng-template>
+<h3>Średnia ocen </h3>
+<div class="averageRatingDiv"><p class="averageRatingParagraph bg-primary">{{ avgRating | async }}</p></div>
 
-<ngb-rating [(rate)]="currentRating" [starTemplate]="t" [readonly]="true" max="5" ></ngb-rating>
+<h3>Oceny</h3>
+<div *ngFor="let rating of ratings | async">
+  {{rating.email}} ocenił ten kurs na ocenę {{rating.value}}
+ 
+</div>
+
+<div class="averageRatingDiv" *ngIf="ratingsNumber == 0">
+  <p class="averageRatingParagraph bg-primary">Brak ocen</p>
+</div>
 
 
-<pre (click)="onRatingReceived(true)">Aktualna ocena: <b>{{currentRating}}</b></pre>
-<pre>Liczba ocen: <b>{{numberOfRatings}}</b></pre>
-<hr>
-<app-course-new-rating [course]="course" (rated)="onRatingReceived($event)"></app-course-new-rating>
 
+
+<div *ngIf="!emailNotNull" >
+  <h3>Musisz być zalogowany aby ocenić kurs!</h3>
+</div>
+
+<div *ngIf="emailNotNull">
+  <h3>Oceń kurs</h3>
+
+  <fieldset class="rating">
+    <ng-container *ngFor="let num of [5, 4, 3, 2 ,1]">
+      <input (click)="ratingHandler(num)" [id]="'star'+num" [value]="num-0.5" name="rating" type="radio" />
+      <label class="full" [for]="'star'+num"></label>
+      
+    </ng-container>
+  </fieldset>
+</div>

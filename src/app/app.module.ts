@@ -25,7 +25,6 @@ import { CourseRatingComponent } from './course-details/course-rating/course-rat
 import { NavigationComponent } from './navigation/navigation.component';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { SuccessAlertComponent } from './alerts/success-alert/success-alert.component';
-import { CourseNewRatingComponent } from './course-details/course-new-rating/course-new-rating.component';
 import { CoursesFilterComponent } from './courses-filter/courses-filter.component';
 
 import { FilterPipe } from './filter.pipe';
@@ -52,7 +51,6 @@ import { RegistrationComponent } from './registration/registration.component';
     CourseRatingComponent,
     AddCourseComponent,
     SuccessAlertComponent,
-    CourseNewRatingComponent,
     CoursesFilterComponent,
     FilterPipe,
     EctsFilterPipe,

@@ -1,38 +1,35 @@
 <div class="container-fluid main-div">
-
-
     <div class="container main-div">
-
-
-        <div *ngIf="course" class="course-details">
+        <!-- <div *ngIf="course" class="course-details"> -->
+        <div class="course-details">
             <div class="container">
-                <h2>{{course.name | uppercase}}</h2>
+                <h2>{{(course | async)?.name}}</h2>
                 <hr>
                 <div class="row">
                     <div class="col-md-3">
-                        <p>Punkty ECTS: {{course.ects}}</p>
+                        <p>Punkty ECTS: {{(course | async)?.ects}}</p>
                     </div>
                     <div class="col-md-3">
-                        <p>Semestr: {{course.semester}}</p>
+                        <p>Semestr: {{(course | async)?.semester}}</p>
                     </div>
                     <div class="col-md-3">
-                        <p>Rodzaj: {{course.activityType}}</p>
+                        <p>Rodzaj: {{(course | async)?.activityType}}</p>
                     </div>
                     <div class="col-md-3">
-                        <p>Limit uczestników: {{course.participantsLimit}}</p>
+                        <p>Limit uczestników: {{(course | async)?.participantsLimit}}</p>
                     </div>
                 </div>
                 <div>
-                    {{course.description}}
+                    {{(course | async)?.description}}
                 </div>
 
-                <app-course-rating [course]="course"></app-course-rating>
-
-
-                <!-- <app-course-new-rating [course]="course" (rated)="onRatingReceived($event)"></app-course-new-rating> -->
-
-
-                <div>
+                <app-course-rating [courseId]="courseId" [email]="email"></app-course-rating>
+                
+                <div class="ghost-div">
+                        
+                </div>
+                
+                <div class="button-div">
                     <button class="btn btn-lg btn-primary" (click)="goBack()">
                         <fa-icon [icon]="faAngleLeft"></fa-icon> Powrót
                     </button>
@@ -40,9 +37,6 @@
 
 
             </div>
-
-
-
         </div>
     </div>
 </div>

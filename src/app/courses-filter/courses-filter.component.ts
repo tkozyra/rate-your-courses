@@ -61,4 +61,8 @@ export class CoursesFilterComponent implements OnInit {
     const index = this.selectedSemester.indexOf(item, 0);
     this.selectedSemester.splice(index, 1);
   }
+
+  // ngAfterContentChecked(){
+  //   console.log(this.selectedName); //debug
+  // }
 }

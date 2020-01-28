@@ -5,6 +5,10 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { FirestoreService } from '../services/firestore.service';
+import { Observable } from 'rxjs';
+import { AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-course-details',
@@ -12,20 +16,37 @@ import { Location } from '@angular/common';
   styleUrls: ['./course-details.component.scss']
 })
 export class CourseDetailsComponent implements OnInit {
-  @Input() course: Course;
-  @Input() index: number;
 
+  course : Observable<any>;
+  private courseDoc: AngularFirestoreDocument;
 
   faAngleLeft = faAngleLeft;
   rated: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private courseService: CourseService,
-    private location: Location
-  ) {}
+    private firestoreService: FirestoreService,
+    private location: Location,
+    private authService: AuthService
+  ) {
+    this.user = this.authService.authState$.subscribe(user => this.user = user);
+  }
+
+  courseId
+  email
+  user
+
+
+  getEmail(){
+    if(this.user){
+      this.email = this.user.email;
+    }else{
+      this.email = ''
+    }
+  }
 
   ngOnInit() {
+    this.getEmail();
     this.getCourse();
     this.rated = false;
   }
@@ -37,13 +58,13 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   getCourse(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.courseService.getCourse(id)
-      .subscribe(course => this.course = course);
+    const id = this.route.snapshot.paramMap.get('id');    
+    this.courseId = id;
+    this.courseDoc = this.firestoreService.getCourseDoc(id);
+    this.course = this.courseDoc.valueChanges();
   }
 
   goBack(): void {
     this.location.back();
-    
   }
 }
