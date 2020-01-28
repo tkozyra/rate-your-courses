@@ -28,15 +28,6 @@ export class AuthService {
     private db: AngularFireDatabase,
     public ngZone: NgZone
   ) {
-    // debug
-    this.fireAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log("user logged in");
-      } else {
-        console.log("user logged out");
-      }
-    })
-
     this.userData = fireAuth.authState;
   }
 
@@ -60,7 +51,9 @@ export class AuthService {
   register({ email, password }: Credentials) {
     return this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-
+        this.ngZone.run(() => {
+          this.router.navigate(['dashboard']);
+        });
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -72,5 +65,4 @@ export class AuthService {
         this.router.navigate(['login']);
       })
   }
-
 }

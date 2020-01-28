@@ -37,19 +37,14 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
 
-    // this.loading = true;
-
     let email = this.f.email.value;
     let password = this.f.password.value;
 
-    
     this.authService.register({ email, password })
-    console.log(this.authService.user.email); //debug
   }
 }

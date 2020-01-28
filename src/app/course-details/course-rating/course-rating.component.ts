@@ -19,7 +19,6 @@ export class CourseRatingComponent implements OnInit {
   emailNotNull
   ratingsNumber
 
-
   @Input() email;
   @Input() courseId;
 
