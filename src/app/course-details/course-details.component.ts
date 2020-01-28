@@ -36,7 +36,6 @@ export class CourseDetailsComponent implements OnInit {
   email
   user
 
-
   getEmail(){
     if(this.user){
       this.email = this.user.email;
@@ -48,14 +47,9 @@ export class CourseDetailsComponent implements OnInit {
   ngOnInit() {
     this.getEmail();
     this.getCourse();
-    this.rated = false;
   }
 
-  onRatingReceived(rated: boolean){
-    if(rated){
-      this.rated = true;
-    }
-  }
+
 
   getCourse(): void {
     const id = this.route.snapshot.paramMap.get('id');    

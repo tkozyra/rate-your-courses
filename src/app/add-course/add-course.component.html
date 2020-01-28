@@ -20,6 +20,14 @@
             <label>Liczba punktów ECTS</label>
             <input type="number" class="form-control" formControlName="ects" required>
 
+
+            <div class="form-error-message" *ngIf="ects.errors && (ects.dirty || ects.touched)">
+                <p *ngIf="ects.errors.max">Maksymalna dopuszczalna wartość to 30</p>
+            </div>
+            <div class="form-error-message" *ngIf="ects.errors && (ects.dirty || ects.touched)">
+                <p *ngIf="ects.errors.min">Minimalna dopuszczalna wartość to 1</p>
+            </div>
+
             <div class="form-error-message" *ngIf="ects.errors && (ects.dirty || ects.touched)">
                 <p *ngIf="ects.errors.required">Pole jest wymagane</p>
             </div>
@@ -33,6 +41,14 @@
             <input type="number" class="form-control" formControlName="semester" required>
 
             <div class="form-error-message" *ngIf="semester.errors && (semester.dirty || semester.touched)">
+                <p *ngIf="semester.errors.max">Maksymalna dopuszczalna wartość to 12</p>
+            </div>
+
+            <div class="form-error-message" *ngIf="semester.errors && (semester.dirty || semester.touched)">
+                <p *ngIf="semester.errors.min">Minimalna dopuszczalna wartość to 1</p>
+            </div>
+
+            <div class="form-error-message" *ngIf="semester.errors && (semester.dirty || semester.touched)">
                 <p *ngIf="semester.errors.required">Pole jest wymagane</p>
             </div>
         </div>
@@ -42,6 +58,14 @@
             'has-success': participantsLimit.valid && participantsLimit.dirty}">
             <label>Maksymalna liczba studentów</label>
             <input type="number" class="form-control" formControlName="participantsLimit" required>
+
+            <div class="form-error-message" *ngIf="participantsLimit.errors && (participantsLimit.dirty || participantsLimit.touched)">
+                <p *ngIf="participantsLimit.errors.max">Maksymalna dopuszczalna wartość to 999</p>
+            </div>
+
+            <div class="form-error-message" *ngIf="participantsLimit.errors && (participantsLimit.dirty || participantsLimit.touched)">
+                <p *ngIf="participantsLimit.errors.min">Minimalna dopuszczalna wartość to 1</p>
+            </div>
 
             <div class="form-error-message"
                 *ngIf="participantsLimit.errors && (participantsLimit.dirty || participantsLimit.touched)">
@@ -77,8 +101,11 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Dodaj kurs</button>
+        <button type="submit" class="btn btn-success">Dodaj kurs</button>
+        <button class="btn btn-secondary" (click)="resetForm()">Resetuj</button>
         <button class="btn btn-danger" (click)="showHideForm()">Anuluj</button>
+        
     </form>
     <app-success-alert [successMessage]="successMessage" *ngIf="successMessageShown"></app-success-alert>
+    <hr>
 </div>

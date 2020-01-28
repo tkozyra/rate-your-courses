@@ -1,0 +1,33 @@
+<hr>
+
+
+<h3>Liczba uczestników</h3>
+<div class="enrollmentCountDiv">
+    <p class="bg-primary enrollmentCountParagraph">
+        {{ enrollmentsNumber }}
+    </p>
+</div>
+
+
+<!-- <h3>Zapisani użytkownicy</h3>
+<div *ngFor="let enrollment of enrollments | async">
+    {{enrollment.email}} zapisał się na ten kurs
+</div> -->
+
+
+<div class="container bg-dark" *ngIf="!emailNotNull">
+    <h3 class="already-registered">Musisz być zalogowany aby zapisać się na ten kurs!</h3>
+</div>
+
+
+<div class="container bg-info" *ngIf="enrolled">
+    <h3 class="already-registered">Jesteś już zapisany na ten kurs!</h3>
+</div>
+
+<p class="hidden">{{ a | async }}</p>
+
+<div *ngIf="!enrolled" class="container">
+    <button *ngIf="emailNotNull" class="btn btn-lg btn-success enroll" (click)="enrollForCourse()">Zapisz się na ten kurs</button>
+</div>
+
+<hr>

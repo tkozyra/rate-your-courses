@@ -7,22 +7,24 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-3">
-                        <p>Punkty ECTS: {{(course | async)?.ects}}</p>
+                        <h5>Punkty ECTS: {{(course | async)?.ects}}</h5>
                     </div>
                     <div class="col-md-3">
-                        <p>Semestr: {{(course | async)?.semester}}</p>
+                        <h5>Semestr: {{(course | async)?.semester}}</h5>
                     </div>
                     <div class="col-md-3">
-                        <p>Rodzaj: {{(course | async)?.activityType}}</p>
+                        <h5>Rodzaj: {{(course | async)?.activityType}}</h5>
                     </div>
                     <div class="col-md-3">
-                        <p>Limit uczestników: {{(course | async)?.participantsLimit}}</p>
+                        <h5>Limit uczestników: {{(course | async)?.participantsLimit}}</h5>
                     </div>
                 </div>
                 <div>
-                    {{(course | async)?.description}}
+                    <p>{{(course | async)?.description}}</p>
                 </div>
 
+                <app-enrollment [courseId]="courseId" [email]="email"></app-enrollment>
+                
                 <app-course-rating [courseId]="courseId" [email]="email"></app-course-rating>
                 
                 <div class="ghost-div">

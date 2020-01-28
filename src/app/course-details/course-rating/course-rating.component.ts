@@ -13,11 +13,11 @@ import { map } from 'rxjs/operators';
   providers: [NgbRatingConfig] // add NgbRatingConfig to the component providers
 })
 
-
 export class CourseRatingComponent implements OnInit {
 
   emailNotNull
   ratingsNumber
+  rated
 
   @Input() email;
   @Input() courseId;
@@ -37,13 +37,22 @@ export class CourseRatingComponent implements OnInit {
 
   ngOnInit() {
     this.ratings = this.ratingService.getCourseRating(this.courseId);
+    this.rated = false
     this.avgRating = this.ratings.pipe(map(arr => {
       const stars = arr.map(v => v.value)
+      const stars2 = arr.map(v => v.email)
+      stars2.forEach(v => {
+        if (v == this.email) {
+          this.rated = true
+        }
+      })
       this.ratingsNumber = stars.length
-      return stars.length ? stars.reduce((total, val) => total + val)/arr.length : 'Brak ocen'
+      // return stars.length ? stars.reduce((total, val) => total + val)/arr.length : 'Brak ocen'
+      return stars.length ? (Number((stars.reduce((total, val) => total + val)/arr.length)*100)/100).toFixed(2) : 'Brak ocen'
     }))
     this.verifyEmail();
   }
+
 
   ratingHandler(value){
     this.ratingService.setRating(this.email, this.courseId, value)

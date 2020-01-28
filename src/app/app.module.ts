@@ -38,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { RegistrationComponent } from './registration/registration.component';
     EctsFilterPipe,
     SemesterFilterPipe,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    EnrollmentComponent
   ],
   imports: [
     

@@ -43,8 +43,6 @@ export class CoursesFilterComponent implements OnInit {
   }
   onEctsItemSelect(item: any) {
     this.selectedEcts.push(item);
-    console.log(this.selectedEcts); //debug
-    console.log(this.selectedName); //debug
   }
 
   onEctsItemDeSelect(item: any){
@@ -54,15 +52,10 @@ export class CoursesFilterComponent implements OnInit {
 
   onSemesterItemSelect(item: any) {
     this.selectedSemester.push(item);
-    console.log(this.selectedSemester);
   }
 
   onSemesterItemDeSelect(item: any){
     const index = this.selectedSemester.indexOf(item, 0);
     this.selectedSemester.splice(index, 1);
   }
-
-  // ngAfterContentChecked(){
-  //   console.log(this.selectedName); //debug
-  // }
 }

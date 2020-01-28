@@ -1,31 +1,45 @@
-<h3>Średnia ocen </h3>
-<div class="averageRatingDiv"><p class="averageRatingParagraph bg-primary">{{ avgRating | async }}</p></div>
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-sm-12">
+    <h3 class="inlineH3">Średnia ocen</h3>
+    <div class="averageRatingDiv">
+      <p class="averageRatingParagraph bg-primary">{{ avgRating | async }}</p>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-12">
+    <h3 class="inlineH3">Liczba ocen</h3>
+    <div class="averageRatingDiv">
+      <p class="averageRatingParagraph bg-primary">{{ ratingsNumber }}</p>
+    </div>
+  </div>
+</div>
 
-<h3>Oceny</h3>
+
+<!-- <h3>Oceny</h3>
 <div *ngFor="let rating of ratings | async">
   {{rating.email}} ocenił ten kurs na ocenę {{rating.value}}
- 
-</div>
-
+</div> -->
+<!-- 
 <div class="averageRatingDiv" *ngIf="ratingsNumber == 0">
   <p class="averageRatingParagraph bg-primary">Brak ocen</p>
+</div> -->
+
+<div class="container bg-warning" *ngIf="rated">
+  <h3 class="info">Oceniłeś już ten kurs, ale możesz zmieniać ocenę!</h3>
 </div>
 
-
-
-
-<div *ngIf="!emailNotNull" >
-  <h3>Musisz być zalogowany aby ocenić kurs!</h3>
+<div class="container bg-warning" *ngIf="!emailNotNull">
+  <h3 class="info">Musisz być zalogowany aby ocenić ten kurs!</h3>
 </div>
 
 <div *ngIf="emailNotNull">
-  <h3>Oceń kurs</h3>
+  <h3 *ngIf="!rated">Oceń kurs</h3>
+  <h3 *ngIf="rated">Zmień ocenę</h3>
 
   <fieldset class="rating">
     <ng-container *ngFor="let num of [5, 4, 3, 2 ,1]">
       <input (click)="ratingHandler(num)" [id]="'star'+num" [value]="num-0.5" name="rating" type="radio" />
       <label class="full" [for]="'star'+num"></label>
-      
     </ng-container>
   </fieldset>
+
 </div>

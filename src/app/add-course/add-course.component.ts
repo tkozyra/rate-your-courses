@@ -37,8 +37,12 @@ export class AddCourseComponent implements OnInit {
   faPlus = faPlus;
 
   showHideForm() {
-    // this.isShow = !this.isShow;
     this.wantsToAddCourse = !this.wantsToAddCourse;
+    this.myForm.reset();
+  }
+
+  resetForm(){
+    this.myForm.reset();
   }
 
   showSuccessMessage() {
@@ -54,7 +58,7 @@ export class AddCourseComponent implements OnInit {
     this.name = new FormControl('', Validators.required),
       this.ects = new FormControl('', [Validators.required, Validators.max(30), Validators.min(1)]),
       this.semester = new FormControl('', [Validators.required, Validators.max(12), Validators.min(1)]),
-      this.participantsLimit = new FormControl('', [Validators.required]),
+      this.participantsLimit = new FormControl('', [Validators.required, Validators.max(999), Validators.min(1)]),
       this.activityType = new FormControl('', Validators.required),
       this.description = new FormControl('', Validators.required)
   }
@@ -85,13 +89,11 @@ export class AddCourseComponent implements OnInit {
         description: this.description.value,
         rating: 0,
         numberOfRatings: 0
-
       }
 
       this.myForm.reset();
       this.showHideForm();
       this.showSuccessMessage();
-
 
       this.firestoreService.createData(this.model);
     }
